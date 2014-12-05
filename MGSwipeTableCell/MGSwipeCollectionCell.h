@@ -1,40 +1,42 @@
-/*
- * MGSwipeTableCell is licensed under MIT license. See LICENSE.md file for more information.
- * Copyright (c) 2014 Imanol Fernandez @MortimerGoro
- */
+//
+//  MGSwipeCollectionCell.h
+//
+//  Created by Daniel Morgan on 12/5/14.
+//  Copyright (c) 2014 Imanol Fernandez Gorostizaga. All rights reserved.
+//
 
 #import <UIKit/UIKit.h>
 #import "MGSwipeSettings.h"
 
 /** helper forward declaration */
-@class MGSwipeTableCell;
+@class MGSwipeCollectionCell;
 
-/** 
+/**
  * Optional delegate to configure swipe buttons or to receive triggered actions.
  * Buttons can be configured inline when the cell is created instead of using this delegate,
  * but using the delegate improves memory usage because buttons are only created in demand
  */
-@protocol MGSwipeTableCellDelegate <NSObject>
+@protocol MGSwipeCollectionCellDelegate <NSObject>
 
 @optional
 /**
  * Delegate method to enable/disable swipe gestures
  * @return YES if swipe is allowed
  **/
--(BOOL) swipeTableCell:(MGSwipeTableCell*) cell canSwipe:(MGSwipeDirection) direction;
+-(BOOL) swipeCollectionCell:(MGSwipeCollectionCell*) cell canSwipe:(MGSwipeDirection) direction;
 
 /**
  * Delegate method invoked when the current swipe state changes
  @param state the current Swipe State
  @param gestureIsActive YES if the user swipe gesture is active. No if the uses has already ended the gesture
  **/
--(void) swipeTableCell:(MGSwipeTableCell*) cell didChangeSwipeState:(MGSwipeState) state gestureIsActive:(BOOL) gestureIsActive;
+-(void) swipeCollectionCell:(MGSwipeCollectionCell*) cell didChangeSwipeState:(MGSwipeState) state gestureIsActive:(BOOL) gestureIsActive;
 
 /**
  * Called when the user clicks a swipe button or when a expandable button is automatically triggered
  * @return YES to autohide the current swipe buttons
  **/
--(BOOL) swipeTableCell:(MGSwipeTableCell*) cell tappedButtonAtIndex:(NSInteger) index direction:(MGSwipeDirection)direction fromExpansion:(BOOL) fromExpansion;
+-(BOOL) swipeCollectionCell:(MGSwipeCollectionCell*) cell tappedButtonAtIndex:(NSInteger) index direction:(MGSwipeDirection)direction fromExpansion:(BOOL) fromExpansion;
 /**
  * Delegate method to setup the swipe buttons and swipe/expansion settings
  * Buttons can be any kind of UIView but it's recommended to use the convenience MGSwipeButton class
@@ -45,7 +47,7 @@
  * @param expansionSettings instance to configure button expansions (optional)
  * @return Buttons array
  **/
--(NSArray*) swipeTableCell:(MGSwipeTableCell*) cell swipeButtonsForDirection:(MGSwipeDirection)direction
+-(NSArray*) swipeCollectionCell:(MGSwipeCollectionCell*) cell swipeButtonsForDirection:(MGSwipeDirection)direction
              swipeSettings:(MGSwipeSettings*) swipeSettings expansionSettings:(MGSwipeExpansionSettings*) expansionSettings;
 
 @end
@@ -56,15 +58,15 @@
  * To implement swipe cells you have to override from this class
  * You can create the cells programmatically, using xibs or storyboards
  */
-@interface MGSwipeTableCell : UITableViewCell
+@interface MGSwipeCollectionCell : UICollectionViewCell <UIGestureRecognizerDelegate>
 
 /** optional delegate (not retained) */
-@property (nonatomic, weak) id<MGSwipeTableCellDelegate> delegate;
+@property (nonatomic, weak) id<MGSwipeCollectionCellDelegate> delegate;
 
 /** optional to use contentView alternative. Use this property instead of contentView to support animated views while swipping */
 @property (nonatomic, strong, readonly) UIView * swipeContentView;
 
-/** 
+/**
  * Left and right swipe buttons and its settings.
  * Buttons can be any kind of UIView but it's recommended to use the convenience MGSwipeButton class
  */
@@ -101,4 +103,3 @@
 -(void) refreshButtons: (BOOL) usingDelegate;
 
 @end
-
