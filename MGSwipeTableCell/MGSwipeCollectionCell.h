@@ -41,7 +41,7 @@
  * Delegate method to setup the swipe buttons and swipe/expansion settings
  * Buttons can be any kind of UIView but it's recommended to use the convenience MGSwipeButton class
  * Setting up buttons with this delegate instead of using cell properties improves memory usage because buttons are only created in demand
- * @param swipeTableCell the UITableVieCel to configure. You can get the indexPath using [tableView indexPathForCell:cell]
+ * @param cell the UICollectionViewCell to configure. You can get the indexPath using [collectionView indexPathForCell:cell]
  * @param direction The swipe direction (left to right or right to left)
  * @param swipeSettings instance to configure the swipe transition and setting (optional)
  * @param expansionSettings instance to configure button expansions (optional)
@@ -98,7 +98,7 @@
 -(void) refreshContentView;
 /** Refresh method to be used when you want to dinamically change the left or right buttons (add or remove)
  * If you only want to change the title or the backgroundColor of a button you can change it's properties (get the button instance from leftButtons or rightButtons arrays)
- * @param usingDelegate if YES new buttons will be fetched using the MGSwipeTableCellDelegate. Otherwise new buttons will be fetched from leftButtons/rightButtons properties.
+ * @param usingDelegate if YES new buttons will be fetched using the MGSwipeCollectionCellDelegate. Otherwise new buttons will be fetched from leftButtons/rightButtons properties.
  */
 -(void) refreshButtons: (BOOL) usingDelegate;
 
